@@ -87,12 +87,12 @@ public enum VCFHeaderVersion {
 
     public static VCFHeaderVersion getHeaderVersion(String versionLine) {
         String[] lineFields = versionLine.split("=");
-        if ( lineFields.length != 2 || !isFormatString(lineFields[0].substring(2)) )
+        if ( lineFields.length != 2 || !isFormatString(lineFields[0].substring(2)) ){
             throw new TribbleException.InvalidHeader(versionLine + " is not a valid VCF version line");
-
-        if ( !isVersionString(lineFields[1]) )
+        }
+        if ( !isVersionString(lineFields[1]) ){
             throw new TribbleException.InvalidHeader(lineFields[1] + " is not a supported version");
-
+        }
         return toHeaderVersion(lineFields[1]);
     }
 

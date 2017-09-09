@@ -104,15 +104,16 @@ class VCF4Parser implements VCFLineParser {
 
         // validate the tags against the expected list
         index = 0;
-        if ( expectedTagOrder != null ) {
-            if ( ret.size() > expectedTagOrder.size() )
-                throw new TribbleException.InvalidHeader("unexpected tag count " + ret.size() + " in line " + valueLine);
-            for ( String str : ret.keySet() ) {
-                if ( !expectedTagOrder.get(index).equals(str) )
-                    throw new TribbleException.InvalidHeader("Unexpected tag " + str + " in line " + valueLine);
-                index++;
-            }
-        }
+// Skip This check as it throws too many false alarms.
+//        if ( expectedTagOrder != null ) {
+//            if ( ret.size() > expectedTagOrder.size() )
+//                throw new TribbleException.InvalidHeader("unexpected tag count " + ret.size() + " in line " + valueLine);
+//            for ( String str : ret.keySet() ) {
+//                if ( !expectedTagOrder.get(index).equals(str) )
+//                    throw new TribbleException.InvalidHeader("Unexpected tag " + str + " in line " + valueLine);
+//                index++;
+//            }
+//        }
         return ret;
     }
 }
@@ -147,11 +148,11 @@ class VCF3Parser implements VCFLineParser {
         
         // validate the tags against the expected list
         index = 0;
-        if (tagIndex != expectedTagOrder.size()) throw new IllegalArgumentException("Unexpected tag count " + tagIndex + ", we expected " + expectedTagOrder.size());
-        for (String str : ret.keySet()){
-            if (!expectedTagOrder.get(index).equals(str)) throw new IllegalArgumentException("Unexpected tag " + str + " in string " + valueLine);
-            index++;
-        }
+//        if (tagIndex != expectedTagOrder.size()) throw new IllegalArgumentException("Unexpected tag count " + tagIndex + ", we expected " + expectedTagOrder.size());
+//        for (String str : ret.keySet()){
+//            if (!expectedTagOrder.get(index).equals(str)) throw new IllegalArgumentException("Unexpected tag " + str + " in string " + valueLine);
+//            index++;
+//        }
         return ret;
     }
 }

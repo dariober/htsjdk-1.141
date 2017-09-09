@@ -84,16 +84,21 @@ public class VCFCodec extends AbstractVCFCodec {
     public Object readActualHeader(final LineIterator lineIterator) {
         final List<String> headerStrings = new ArrayList<String>();
 
+        String defaultVersion= "VCFv4.1"; 
+        
         String line;
         boolean foundHeaderVersion = false;
         while (lineIterator.hasNext()) {
             line = lineIterator.peek();
             lineNo++;
             if (line.startsWith(VCFHeader.METADATA_INDICATOR)) {
-                final String[] lineFields = line.substring(2).split("=");
+            	final String[] lineFields = line.substring(2).split("=");
                 if (lineFields.length == 2 && VCFHeaderVersion.isFormatString(lineFields[0]) ) {
-                    if ( !VCFHeaderVersion.isVersionString(lineFields[1]) )
-                        throw new TribbleException.InvalidHeader(lineFields[1] + " is not a supported version");
+                    if ( !VCFHeaderVersion.isVersionString(lineFields[1]) ){
+                    	System.err.println("VCF version " + lineFields[1] + " is not supported. Resetting to: " + defaultVersion);
+                    	lineFields[1]= defaultVersion;
+                    	// throw new TribbleException.InvalidHeader(lineFields[1] + " is not a supported version");
+                    }
                     foundHeaderVersion = true;
                     version = VCFHeaderVersion.toHeaderVersion(lineFields[1]);
                     if ( ! version.isAtLeastAsRecentAs(VCFHeaderVersion.VCF4_0) )
@@ -105,8 +110,10 @@ public class VCFCodec extends AbstractVCFCodec {
             }
             else if (line.startsWith(VCFHeader.HEADER_INDICATOR)) {
                 if (!foundHeaderVersion) {
-                    throw new TribbleException.InvalidHeader("We never saw a header line specifying VCF version");
-                }
+                	System.err.println("Header line specifying VCF version not found. Setting version to: VCFv4.1" );
+                	version = VCFHeaderVersion.toHeaderVersion(defaultVersion);
+                    // throw new TribbleException.InvalidHeader("We never saw a header line specifying VCF version");
+                } 
                 headerStrings.add(lineIterator.next());
                 super.parseHeaderFromLines(headerStrings, version);
                 return this.header;
