@@ -730,7 +730,7 @@ public class SAMRecord implements Cloneable, Locatable, Serializable {
      * the read is mapped in a proper pair (depends on the protocol, normally inferred during alignment).
      */
     public boolean getProperPairFlag() {
-        requireReadPaired();
+        // requireReadPaired();
         return getProperPairFlagUnchecked();
     }
 
@@ -749,7 +749,7 @@ public class SAMRecord implements Cloneable, Locatable, Serializable {
      * the mate is unmapped.
      */
     public boolean getMateUnmappedFlag() {
-        requireReadPaired();
+        // requireReadPaired();
         return getMateUnmappedFlagUnchecked();
     }
 
@@ -768,7 +768,7 @@ public class SAMRecord implements Cloneable, Locatable, Serializable {
      * strand of the mate (false for forward; true for reverse strand).
      */
     public boolean getMateNegativeStrandFlag() {
-        requireReadPaired();
+        // requireReadPaired();
         return getMateNegativeStrandFlagUnchecked();
     }
 
@@ -780,7 +780,7 @@ public class SAMRecord implements Cloneable, Locatable, Serializable {
      * the read is the first read in a pair.
      */
     public boolean getFirstOfPairFlag() {
-        requireReadPaired();
+        // requireReadPaired();
         return getFirstOfPairFlagUnchecked();
     }
 
@@ -792,7 +792,7 @@ public class SAMRecord implements Cloneable, Locatable, Serializable {
      * the read is the second read in a pair.
      */
     public boolean getSecondOfPairFlag() {
-        requireReadPaired();
+        // requireReadPaired();
         return getSecondOfPairFlagUnchecked();
     }
 
