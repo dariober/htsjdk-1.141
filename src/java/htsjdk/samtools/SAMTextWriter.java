@@ -50,8 +50,8 @@ public class SAMTextWriter extends SAMFileWriterImpl {
      * @param out Writer.
      */
     public SAMTextWriter(Writer out) {
-	this.out = out;
-	this.file = null;
+		this.out = out;
+		this.file = null;
     }
 
     /**
@@ -142,11 +142,11 @@ public class SAMTextWriter extends SAMFileWriterImpl {
     private static SAMTextWriter textWriter = null;
     private static StringWriter stringWriter = null;
     static synchronized String getSAMString(final SAMRecord alignment) {
-	if (stringWriter == null) stringWriter = new StringWriter();
-	if (textWriter == null) textWriter = new SAMTextWriter(stringWriter);
-	stringWriter.getBuffer().setLength(0);
-	textWriter.writeAlignment(alignment);
-	return stringWriter.toString();
+		if (stringWriter == null) stringWriter = new StringWriter();
+		if (textWriter == null) textWriter = new SAMTextWriter(stringWriter);
+		stringWriter.getBuffer().setLength(0);
+		textWriter.writeAlignment(alignment);
+		return stringWriter.toString();
     }
 
     /**
